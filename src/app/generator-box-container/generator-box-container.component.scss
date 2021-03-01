@@ -1,0 +1,28 @@
+.main-container{
+    .box-container{
+        .box{
+            border-style: solid;
+            height: 3em;
+            width: 3em;
+            margin: 0.2em;
+            border-color: black;
+            position: relative;
+        }
+
+        .box-selected{
+            border-style: solid;
+            height: 3em;
+            width: 3em;
+            margin: 0.2em;
+            position: relative;
+            border-color:darkgreen !important;
+        }
+
+       
+        
+    }
+
+    .action-buttons{
+
+    }
+}
