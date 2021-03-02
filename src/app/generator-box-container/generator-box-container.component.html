@@ -1,10 +1,19 @@
 <div class="main-container">
 
 
-    <div class="box-container" #newTestBox>
-    </div>
 
-    <div class="action-buttons">
-        <button (click)="addBox()">Add Box</button>
-    </div>
+  <div class="action-buttons">
+    <button (click)="addBox()" class="add-box-btn" title="New Box">+</button>
+ 
+    <label class="toggle-control">
+      <input type="checkbox" [(ngModel)]="!keyEvents" (change)="keyEvents=!keyEvents" title="Lock Key Bindings">
+      <span class="control"></span>
+    </label>
+
+  
+  </div>
+
+  <div class="box-container" #newTestBox>
+  </div>
+
 </div>
