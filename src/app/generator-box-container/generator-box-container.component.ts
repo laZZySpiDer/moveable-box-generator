@@ -26,11 +26,7 @@ export class GeneratorBoxContainerComponent implements OnInit {
    this.width = width-2;
    this.height = height-2;
    console.log(x+' - '+y+' w ='+width+' h='+height);
-              
 
-
-
-    
       window.addEventListener('keydown', (event: KeyboardEvent) => {
 
         if(!this.keyEvents){
@@ -47,7 +43,7 @@ export class GeneratorBoxContainerComponent implements OnInit {
               
               
               const v = document.getElementById(this.selectedBoxId);
-              const {x,y} = v.getBoundingClientRect();
+              const {x,y} = v.getBoundingClientRect() as DOMRect;
               console.log(this.x+' - '+this.y);
               console.log(x+ '--' +y);
 
@@ -61,7 +57,7 @@ export class GeneratorBoxContainerComponent implements OnInit {
             case 'a' : {
              
               const v = document.getElementById(this.selectedBoxId);
-              const {x,y} = v.getBoundingClientRect();
+              const {x,y} = v.getBoundingClientRect() as DOMRect;
               if(this.x >= x){
                 return;
               }
@@ -72,7 +68,7 @@ export class GeneratorBoxContainerComponent implements OnInit {
             case 's' : {
               // const {x, y} = this.renderer.selectRootElement(document.getElementById(this.selectedBoxId).getBoundingClientRect());
               const v = document.getElementById(this.selectedBoxId);
-              const {x,y,width,height} = v.getBoundingClientRect();
+              const {x,y,width,height} = v.getBoundingClientRect() as DOMRect;
               if((this.y+this.height) <= (y+height)){
                 return;
               }
@@ -83,7 +79,7 @@ export class GeneratorBoxContainerComponent implements OnInit {
             case 'd' : {
               // const {x, y} = this.renderer.selectRootElement(document.getElementById(this.selectedBoxId).getBoundingClientRect());
               const v = document.getElementById(this.selectedBoxId);
-              const {x,y,width,height} = v.getBoundingClientRect();
+              const {x,y,width,height} = v.getBoundingClientRect() as DOMRect;
 
               if((this.x+this.width) <= (x+width)){
                 return;
@@ -132,12 +128,17 @@ export class GeneratorBoxContainerComponent implements OnInit {
   public boxClicked(idOfBox: string) {
     // check if any element is already selected and remove the selection from that box
     if (this.selectedBoxId) {
-      this.renderer.setAttribute(this.renderer.selectRootElement(document.getElementById(this.selectedBoxId)), 'class', 'box');
+      // this.renderer.setAttribute(this.renderer.selectRootElement(document.getElementById(this.selectedBoxId)), 'class', 'box');
+    const obj = document.getElementById(this.selectedBoxId);
+    obj.className = 'box';
     }
 
     // find the selected element and attach the class of selected box and also store the selectedID of box
     // for future use
-    this.renderer.setAttribute(this.renderer.selectRootElement(document.getElementById(idOfBox)), 'class', 'box-selected');
+    const newObj = document.getElementById(idOfBox);
+    newObj.className = 'box-selected';
+
+    // this.renderer.setAttribute(this.renderer.selectRootElement(document.getElementById(idOfBox)), 'class', 'box-selected');
     this.selectedBoxId = idOfBox;
 
   }
@@ -145,10 +146,15 @@ export class GeneratorBoxContainerComponent implements OnInit {
 
   public addBox() {
     this.idCount++;
-
+    if(this.idCount >=100){
+      alert('cannot add more boxes');
+    }
     // create a box, attach a unique id, add a class, add z-index in inline css property
     // attach a listener to the element and at last append to the box-container.
     const newBox = this.renderer.createElement('div');
+    // const newText = this.renderer.createText(`${this.idCount}`);
+    newBox.innerHTML = this.idCount;
+    // this.renderer.appendChild(newBox,newText);
     this.renderer.setProperty(newBox, 'id', `newBox${this.idCount}`);
     this.renderer.setAttribute(newBox, 'class', 'box');
     this.renderer.setStyle(newBox, 'z-index', `${this.idCount}`);

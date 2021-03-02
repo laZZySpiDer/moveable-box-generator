@@ -22,11 +22,13 @@
     height: 95vh;
     border-color: green;
     border-style: solid;
+    display: flex;
+    flex-wrap: wrap;
 
     .box {
       border-style: solid;
-      height: 3em;
-      width: 3em;
+      height: 6vh;
+      width: 6vw;
       margin: 0.2em;
       border-color: black;
       position: relative;
@@ -34,8 +36,8 @@
 
     .box-selected {
       border-style: solid;
-      height: 3em;
-      width: 3em;
+      height: 6vh;
+      width: 6vw;
       margin: 0.2em;
       position: relative;
       border-color: $toggle-background-color-off;
